@@ -57,6 +57,7 @@ import (
 
 	"go.mau.fi/util/exerrors"
 	"go.mau.fi/util/exmime"
+	"go.mau.fi/util/exzerolog"
 	"go.mau.fi/util/ffmpeg"
 	"go.mau.fi/util/jsontime"
 	"go.mau.fi/util/random"
@@ -442,7 +443,9 @@ func (portal *Portal) handleMatrixMessageLoopItem(msg *PortalMatrixMessage) {
 		totalReceive: time.Since(evtTS),
 	}
 	implicitRRStart := time.Now()
+	/* EDIT LARS
 	portal.handleMatrixReadReceipt(ctx, msg.user, "", evtTS, false)
+	*/
 	timings.implicitRR = time.Since(implicitRRStart)
 	switch msg.evt.Type {
 	case event.EventMessage, event.EventSticker, TypeMSC3381V2PollResponse, TypeMSC3381PollResponse, TypeMSC3381PollStart:
@@ -5192,7 +5195,7 @@ func (portal *Portal) handleMatrixReadReceipt(ctx context.Context, sender *User,
 			Any("receipts", groupedMessages).
 			Msg("Sending read receipts to WhatsApp")
 	}
-	/* EDIT LARS
+
 	for messageSender, ids := range groupedMessages {
 
 		chatJID := portal.Key.JID
@@ -5210,7 +5213,7 @@ func (portal *Portal) handleMatrixReadReceipt(ctx context.Context, sender *User,
 		}
 
 	}
-	*/
+
 }
 
 func typingDiff(prev, new []id.UserID) (started, stopped []id.UserID) {
