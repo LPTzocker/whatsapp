@@ -44,7 +44,6 @@ import (
 
 	"github.com/rs/zerolog"
 	"github.com/tidwall/gjson"
-	"go.mau.fi/util/exzerolog"
 	cwebp "go.mau.fi/webp"
 	"go.mau.fi/whatsmeow"
 	waProto "go.mau.fi/whatsmeow/binary/proto"
@@ -5193,12 +5192,15 @@ func (portal *Portal) handleMatrixReadReceipt(ctx context.Context, sender *User,
 			Any("receipts", groupedMessages).
 			Msg("Sending read receipts to WhatsApp")
 	}
+	/* EDIT LARS
 	for messageSender, ids := range groupedMessages {
+
 		chatJID := portal.Key.JID
 		if messageSender.Server == types.BroadcastServer {
 			chatJID = messageSender
 			messageSender = portal.Key.JID
 		}
+
 		err = sender.Client.MarkRead(ids, receiptTimestamp, chatJID, messageSender)
 		if err != nil {
 			log.Err(err).
@@ -5206,7 +5208,9 @@ func (portal *Portal) handleMatrixReadReceipt(ctx context.Context, sender *User,
 				Stringer("target_user_jid", messageSender).
 				Msg("Failed to send read receipt")
 		}
+
 	}
+	*/
 }
 
 func typingDiff(prev, new []id.UserID) (started, stopped []id.UserID) {
@@ -5242,6 +5246,7 @@ func (portal *Portal) setTyping(userIDs []id.UserID, state types.ChatPresence) {
 			Stringer("user_mxid", user.MXID).
 			Str("state", string(state)).
 			Msg("Bridging typing change to chat presence")
+		/* EDIT LARS
 		err := user.Client.SendChatPresence(portal.Key.JID, state, types.ChatPresenceMediaText)
 		if err != nil {
 			portal.zlog.Err(err).
@@ -5256,6 +5261,7 @@ func (portal *Portal) setTyping(userIDs []id.UserID, state types.ChatPresence) {
 				user.zlog.Warn().Err(err).Msg("Failed to set presence on typing")
 			}
 		}
+		*/
 	}
 }
 

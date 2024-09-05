@@ -21,7 +21,6 @@ import (
 	"fmt"
 
 	"github.com/rs/zerolog"
-	"go.mau.fi/whatsmeow/types"
 
 	"maunium.net/go/mautrix"
 	"maunium.net/go/mautrix/bridge"
@@ -129,7 +128,7 @@ func (br *WABridge) HandlePresence(ctx context.Context, evt *event.Event) {
 	if customPuppet != nil && !customPuppet.EnablePresence {
 		return
 	}
-
+	/* EDIT LARS
 	presence := types.PresenceAvailable
 	if evt.Content.AsPresence().Presence != event.PresenceOnline {
 		presence = types.PresenceUnavailable
@@ -137,6 +136,7 @@ func (br *WABridge) HandlePresence(ctx context.Context, evt *event.Event) {
 	} else {
 		user.zlog.Debug().Msg("Marking online")
 	}
+
 	user.lastPresence = presence
 	if user.Client.Store.PushName != "" {
 		err := user.Client.SendPresence(presence)
@@ -144,4 +144,5 @@ func (br *WABridge) HandlePresence(ctx context.Context, evt *event.Event) {
 			user.zlog.Err(err).Msg("Failed to set presence")
 		}
 	}
+	*/
 }
